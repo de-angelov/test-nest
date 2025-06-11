@@ -22,7 +22,7 @@
       "continuous": true,
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
-      "dependsOn": ["build"],
+      "dependsOn": ["build", "generate-types"],
       "options": {
         "buildTarget": "jobber-auth:build",
         "runBuildTargetDependencies": true

@@ -7,13 +7,16 @@ import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
 import { ConfigService } from '@nestjs/config';
+import * as cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const globalPrefix = 'api';
 
-  app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
-  app.setGlobalPrefix(globalPrefix);
+  app
+    .useGlobalPipes(new ValidationPipe({ whitelist: true }))
+    .setGlobalPrefix(globalPrefix)
+    .use(cookieParser());
 
   const port = app.get(ConfigService).getOrThrow('PORT');
   await app.listen(port);
