@@ -6,7 +6,7 @@
   "tags": [],
   "targets": {
     "build": {
-      "dependsOn": ["generate-types"],
+      "dependsOn": ["generate-prisma", "generate-ts-proto"],
       "executor": "nx:run-commands",
       "options": {
         "command": "webpack-cli build",
@@ -22,7 +22,7 @@
       "continuous": true,
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
-      "dependsOn": ["build", ""],
+      "dependsOn": ["build"],
       "options": {
         "buildTarget": "jobber-auth:build",
         "runBuildTargetDependencies": true
@@ -37,22 +37,27 @@
       }
     },
     "test": {
-      "dependsOn": ["generate-types"],
+      "dependsOn": ["generate-prisma"],
       "options": {
         "passWithNoTests": true
       }
     },
-    "generate-types": {
+    "generate-prisma": {
       "command": "prisma generate",
       "options": {
-        "cwd": "apps/jobber-auth"
+        "cwd": "{projectRoot}",
+        "input": ["prisma/schema.prisma"]
       }
     },
     "migrate-prisma": {
       "command": "prisma migrate dev",
       "options": {
-        "cwd": "apps/jobber-auth"
-      }
+        "cwd": "{projectRoot}"
+      },
+      "cache": true
+    },
+    "generate-ts-proto": {
+      "command": "nx generate-ts-proto"
     }
   }
 }

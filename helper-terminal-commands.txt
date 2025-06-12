@@ -1,0 +1,17 @@
+//show used ports in range 
+
+sudo ss -tulnp | awk 'NR>1 {
+                                                split($5, a, ":");
+                                                port = a[length(a)];
+                                                if (port >= 2000 && port <= 6000) {
+                                                    pid_cmd = $NF; # Last field containing "users:(("pid=XXX,comm=YYY"))"
+                                                    sub(/users:\(\("pid=/, "", pid_cmd);
+                                                    sub(/,comm=/, ":", pid_cmd);
+                                                    sub(/\)\)/, "", pid_cmd);
+                                                    print port, pid_cmd
+                                                }
+                                            }' | column -t
+
+//kill processes with name containign "node", can be changed to something else  
+
+pkill node
