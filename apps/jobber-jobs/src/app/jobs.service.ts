@@ -30,8 +30,7 @@ export class JobsService implements OnModuleInit {
     return this.jobs.map((job) => job.meta);
   }
 
-  @UseGuards(GqlAuthGuard)
-  async executeJob(name: string) {
+  async executeJob(name: string, data: object) {
     const job = this.jobs.find((job) => job.meta.name === name);
     if (!job) {
       throw new BadRequestException(`Job ${name} does not exists.`);
@@ -41,7 +40,7 @@ export class JobsService implements OnModuleInit {
         'Job is not an instance of AbstractJob'
       );
     }
-    await job.discoveredClass.instance.execute({}, job.meta.name);
+    await job.discoveredClass.instance.execute(data, job.meta.name);
     return job.meta;
   }
 }
