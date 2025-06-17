@@ -3,7 +3,7 @@ import { IsNotEmpty } from 'class-validator';
 
 @InputType()
 export class ExecuteJobInput {
-    @Field()
-    @IsNotEmpty()
-    name: string;
+  @Field()
+  @IsNotEmpty()
+  name: string;
 }

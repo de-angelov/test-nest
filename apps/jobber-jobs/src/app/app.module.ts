@@ -1,23 +1,22 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { JobModule } from './jobs/jobs.module';
+import { JobModule } from './jobs.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 
-
 @Module({
   imports: [
-    ConfigModule, 
-    JobModule, 
+    ConfigModule,
+    JobModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: true,
       playground: {
         settings: {
-          'request.credentials': 'include', 
-        }
-      }
-    })
+          'request.credentials': 'include',
+        },
+      },
+    }),
   ],
   controllers: [],
   providers: [],

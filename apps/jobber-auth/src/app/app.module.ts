@@ -20,7 +20,7 @@ import { AuthModule } from './auth/auth.module';
       },
     }),
     UsersModule,
-    ConfigModule,
+    ConfigModule.forRoot({ isGlobal: true }),
     AuthModule,
   ],
   controllers: [],
