@@ -3,7 +3,6 @@ import {
   Injectable,
   InternalServerErrorException,
   OnModuleInit,
-  UseGuards,
 } from '@nestjs/common';
 import { JOB_METADATA_KEY } from './decorators/job.decorator';
 import { JobMetadata } from './interfaces/job-metadata.interface';
@@ -12,7 +11,6 @@ import {
   DiscoveryService,
 } from '@golevelup/nestjs-discovery';
 import { AbstractJob } from './jobs/abstract-job';
-import { GqlAuthGuard } from '@jobber/nestjs';
 
 @Injectable()
 export class JobsService implements OnModuleInit {
