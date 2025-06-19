@@ -15,7 +15,10 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@jobber/graphql": ["lib/graphql/src/index.ts"],
+      "@jobber/grpc": ["lib/grpc/src/index.ts"],
       "@jobber/nestjs": ["lib/nestjs/src/index.ts"],
+      "@jobber/prisma": ["lib/prisma/src/index.ts"],
       "@jobber/pulsar": ["lib/pulsar/src/index.ts"]
     }
   },
