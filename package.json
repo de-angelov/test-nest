@@ -33,12 +33,20 @@
     "graphql": "^16.11.0",
     "graphql-type-json": "^0.3.2",
     "i": "^0.3.7",
+    "module-alias": "^2.2.3",
     "npm": "^11.4.1",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.0",
     "ts-proto": "^2.7.4"
+  },
+  "_moduleAliases": {
+    "@jobber/grpc": "dist/libs/grpc/main",
+    "@jobber/graphql": "dist/libs/graphql/main",
+    "@jobber/prisma": "dist/libs/prisma/main",
+    "@jobber/nestjs": "dist/libs/nestjs/main",
+    "@jobber/pulsar": "dist/libs/pulsar/main"
   },
   "devDependencies": {
     "@eslint/js": "^9.8.0",
