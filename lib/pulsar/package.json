@@ -1,6 +1,8 @@
 {
   "name": "@jabber/pulsar",
   "version": "0.0.0",
-  "dependencies": {},
+  "dependencies": {
+    "pulsar-client": "^1.13.2"
+  },
   "devDependencies": {}
 }

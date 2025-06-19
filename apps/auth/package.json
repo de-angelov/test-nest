@@ -1,6 +1,7 @@
 {
   "name": "@jabber/auth",
   "version": "0.0.0",
-  "dependencies": {},
-  "devDependencies": {}
+  "dependencies": {
+    "@prisma/client": "^6.9.0"
+  }
 }

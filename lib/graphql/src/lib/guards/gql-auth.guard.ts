@@ -11,7 +11,7 @@ import {
   AUTH_PACKAGE_NAME,
   AUTH_SERVICE_NAME,
   AuthServiceClient,
-} from 'types/proto/auth';
+} from '@jobber/grpc';
 import { ClientGrpc } from '@nestjs/microservices';
 import { GqlExecutionContext } from '@nestjs/graphql';
 @Injectable()
