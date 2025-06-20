@@ -40,7 +40,8 @@
     "pino-http": "^10.5.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.0",
-    "ts-proto": "^2.7.4"
+    "ts-proto": "^2.7.4",
+    "uuid": "^11.1.0"
   },
   "_moduleAliases": {
     "@jobber/grpc": "dist/libs/grpc/main",

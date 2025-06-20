@@ -6,6 +6,7 @@ import {
   GraphQLRequestContextWillSendResponse,
   GraphQLRequestListener,
 } from '@apollo/server';
+import { v4 as uuidv4 } from 'uuid';
 
 type resContext = GraphQLRequestContextWillSendResponse<BaseContext>;
 type reqContext = GraphQLRequestContext<BaseContext>;
@@ -17,8 +18,10 @@ export class GqlLoggingPlugin implements ApolloServerPlugin {
   async requestDidStart?(requestContext: reqContext): Promise<reqListener> {
     const { request } = requestContext;
     const start = Date.now();
+    const requestId = uuidv4();
 
     this.logger.log({
+      requestId,
       headers: request.http?.headers,
       query: request.query,
       variables: request.variables,
@@ -28,6 +31,7 @@ export class GqlLoggingPlugin implements ApolloServerPlugin {
       const duration = Date.now() - start;
 
       this.logger.log({
+        requestId,
         query: request.query,
         statusCode: responseContext.response?.http?.status || 200,
         duration: `${duration}ms`,
