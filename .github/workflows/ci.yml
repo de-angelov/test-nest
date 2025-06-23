@@ -40,6 +40,7 @@ jobs:
       # Prepend any command with "nx-cloud record --" to record its logs to Nx Cloud
       # - run: npx nx-cloud record -- echo Hello World
       # Nx Affected runs only tasks affected by the changes in this PR/commit. Learn more: https://nx.dev/ci/features/affected
+      - run: npx nx affected -t lint test build
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v3
@@ -47,7 +48,6 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_ACTION_SECRET_KEY }}
           aws-region: us-east-1
-
       - name: Log in Amazon ECR
         run: |
           aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 167661589375.dkr.ecr.us-east-1.amazonaws.com
@@ -65,12 +65,10 @@ jobs:
             DOCKERFILE=$(echo $image | cut -d' ' -f2)
             {
               docker build  \
-                --tag 167661589375.dkr.ecr.us-east-1.amazonaws.com/jobber/$NAME:latest 
+                --tag 167661589375.dkr.ecr.us-east-1.amazonaws.com/jobber/$NAME:latest \
                 -f $DOCKERFILE \
                 . && docker push 167661589375.dkr.ecr.us-east-1.amazonaws.com/jobber/$NAME:latest
             } & 
             done 
 
             wait
-
-      - run: npx nx affected -t lint test build
