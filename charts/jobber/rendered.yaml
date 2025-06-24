@@ -1,0 +1,24 @@
+---
+# Source: jobber/templates/jobs/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jobs
+  labels: 
+    app: jobs
+spec: 
+  replicas: 1
+  selector: 
+    matchLabels: 
+      app: jobs
+  template:
+    metadata: 
+      labels:
+        app: jobs
+    spec: 
+      containers: 
+        - name: jobs
+          image: 167661589375.dkr.ecr.us-east-1.amazonaws.com/jobber/jobs:latest
+          imagePullPolicy: Always 
+          ports: 
+            - containerPort: 3001
