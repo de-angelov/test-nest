@@ -16,7 +16,6 @@ COPY lib/graphql ./lib/graphql
 COPY lib/grpc ./lib/grpc 
 COPY lib/nestjs ./lib/nestjs
 COPY lib/pulsar ./lib/pulsar
-COPY lib/grpc/proto ./lib/grpc/proto
 
 RUN npm install 
 
