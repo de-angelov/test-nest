@@ -47,3 +47,21 @@ jobs:
   replicas: 1
   image:  "167661589375.dkr.ecr.us-east-1.amazonaws.com/jobber/jobs:latest"
   port: 3001
+
+
+executor: 
+  enabled: true
+  replicas: 1
+  image:  "167661589375.dkr.ecr.us-east-1.amazonaws.com/jobber/executor:latest"
+  port: 3002
+
+auth: 
+  enabled: true
+  replicas: 1
+  image:  "167661589375.dkr.ecr.us-east-1.amazonaws.com/jobber/auth:latest"
+  port: 
+    http: 3000
+    grpc: 5000 
+  jwt: 
+    secret: "D1DX8Lll5gbEBwpnqNURAAYfKxMHB9Zz"
+    expirationMs: 28800000
