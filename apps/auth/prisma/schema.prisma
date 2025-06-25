@@ -2,6 +2,7 @@ generator client {
     provider = "prisma-client-js"
     output = "../../../node_modules/@prisma-clients/auth"
     // specifically prisma-client[S] to fix nx/prisma bug
+    binaryTargets = ["native", "debian-openssl-1.1.x"]
 
 }
 

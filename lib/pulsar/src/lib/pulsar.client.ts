@@ -12,7 +12,6 @@ export class PulsarClient implements OnModuleDestroy {
   private readonly consumers: Consumer[] = [];
 
   constructor(private readonly configService: ConfigService) {}
-  // test
   async onModuleDestroy() {
     for (const producer of this.producers) {
       await producer.close();

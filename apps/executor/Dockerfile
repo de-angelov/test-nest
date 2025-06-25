@@ -2,6 +2,8 @@ FROM node:18-slim AS builder
 
 WORKDIR /workspace
 
+RUN apt-get update && apt-get install -y openssl
+
 COPY package*.json ./
 COPY nx.json ./
 COPY tsconfig*.json ./
