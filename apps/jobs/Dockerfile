@@ -16,6 +16,7 @@ COPY lib/graphql ./lib/graphql
 COPY lib/grpc ./lib/grpc 
 COPY lib/nestjs ./lib/nestjs
 COPY lib/pulsar ./lib/pulsar
+COPY lib/grpc/proto ./lib/grpc/proto
 
 RUN npm install 
 
@@ -26,11 +27,11 @@ RUN npx nx build jobs
 FROM node:18-slim AS runner 
 
 COPY --from=builder /workspace/package.json ./ 
+COPY --from=builder /workspace/package-lock.json ./
 COPY --from=builder /workspace/apps/jobs/package.json ./apps/jobs/package.json 
 COPY --from=builder /workspace/lib/graphql/package.json ./lib/graphql/package.json 
 COPY --from=builder /workspace/lib/grpc/package.json ./lib/grpc/package.json 
 COPY --from=builder /workspace/lib/pulsar/package.json ./lib/pulsar/package.json 
-COPY --from=builder /workspace/package-lock.json ./
 
 
 # set variable to optimize build and exclude dev dependencies 

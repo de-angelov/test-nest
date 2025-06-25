@@ -24,3 +24,7 @@ nx reset had no effect (though it deletes the contents of the .nx folder - I che
 
 ps aux | grep 'nx/src' | grep -v grep | awk '{print $2}' | xargs kill
 Also, sometimes it hangs up with 'Waiting for graph construction in another process to complete'. It might be connected to the problem.
+
+
+// inspect file contents of docker image
+docker run -it --entrypoint /bin/sh jobber-jobs
