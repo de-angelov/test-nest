@@ -33,6 +33,7 @@ docker run -it --entrypoint /bin/sh jobber-jobs
 // kubernetes related commands
 minikube status
 minikube start
+minikube service auth-http  -n jobber
 
 helm upgrade jobber . -n jobber
 helm uninstall jobber -n jobber
@@ -40,3 +41,4 @@ helm install jobber . -n=jobber  --create-namespace
 
 kubectl get po -n jobber
 kubectl logs executor-7dd669bdc6-tdpzc -n jobber
+kubectl describe po auth-598f9fc8d9-pfbwf  -n jobber 

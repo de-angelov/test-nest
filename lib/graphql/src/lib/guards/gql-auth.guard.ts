@@ -14,6 +14,8 @@ import {
 } from '@jobber/grpc';
 import { ClientGrpc } from '@nestjs/microservices';
 import { GqlExecutionContext } from '@nestjs/graphql';
+
+// test
 @Injectable()
 export class GqlAuthGuard implements CanActivate, OnModuleInit {
   private authService!: AuthServiceClient;

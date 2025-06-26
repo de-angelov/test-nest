@@ -12,7 +12,8 @@ COPY jest.preset.js ./
 COPY eslint.config.mjs ./ 
 COPY webpack.*.config.js ./
 
-COPY apps/auth ./apps/auth  
+COPY apps/auth ./apps/auth 
+COPY apps/auth/prisma ./apps/auth/prisma  
 COPY lib/graphql ./lib/graphql 
 COPY lib/grpc ./lib/grpc 
 COPY lib/nestjs ./lib/nestjs
@@ -27,13 +28,14 @@ RUN npx nx build auth
 FROM node:18-slim AS runner 
 
 COPY --from=builder /workspace/package.json ./ 
-COPY --from=builder /workspace/apps/auth/package.json ./apps/auth/package.json 
+COPY --from=builder /workspace/package-lock.json ./
+# workaround
+COPY apps/auth/prisma ./apps/auth/prisma  
+# COPY --from=builder /workspace/apps/auth/package.json ./apps/auth/package.json 
+COPY --from=builder /workspace/apps/auth/prisma ./apps/auth/prisma
 COPY --from=builder /workspace/lib/graphql/package.json ./lib/graphql/package.json 
 COPY --from=builder /workspace/lib/grpc/package.json ./lib/grpc/package.json 
 COPY --from=builder /workspace/lib/prisma/package.json ./lib/prisma/package.json 
-COPY --from=builder /workspace/package-lock.json ./
-
-
 # set variable to optimize build and exclude dev dependencies 
 ENV NODE_ENV=production
 

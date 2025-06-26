@@ -15,6 +15,16 @@ spec:
       labels:
         app: auth
     spec: 
+      initContainers:
+        - name: prisma-migrate 
+          image: {{ .Values.auth.image }}
+          imagePullPolicy: {{ .Values.global.imagePullPolicy }}
+          command: ["sh", "-c"]
+          args: 
+            - | 
+               echo "Listing contents of apps/auth/prisma folder:" && ls apps/auth/prisma
+          env: 
+            {{- include "common.env" . | nindent 12 }}
       containers: 
         - name: auth
           image: {{ .Values.auth.image }}
@@ -25,7 +35,7 @@ spec:
           env: 
             {{- include "common.env" . | nindent 12 }}
             - name: PORT
-              value: "{{ .Values.auth.port }}"
+              value: "{{ .Values.auth.port.http }}"
             - name: JWT_SECRET
               value: {{ .Values.auth.jwt.secret }}
             - name: JWT_EXPIRATION_MS
