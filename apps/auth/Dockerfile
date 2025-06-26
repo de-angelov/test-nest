@@ -13,6 +13,7 @@ COPY eslint.config.mjs ./
 COPY webpack.*.config.js ./
 
 COPY apps/auth ./apps/auth  
+RUN ls -la /workspace/apps/auth && ls -la /workspace/apps/auth/prisma
 COPY lib/graphql ./lib/graphql 
 COPY lib/grpc ./lib/grpc 
 COPY lib/nestjs ./lib/nestjs
@@ -29,10 +30,10 @@ FROM node:18-slim AS runner
 COPY --from=builder /workspace/package.json ./ 
 COPY --from=builder /workspace/package-lock.json ./
 COPY --from=builder /workspace/apps/auth/package.json ./apps/auth/package.json 
+COPY --from=builder /workspace/apps/auth/prisma ./apps/auth/prisma
 COPY --from=builder /workspace/lib/graphql/package.json ./lib/graphql/package.json 
 COPY --from=builder /workspace/lib/grpc/package.json ./lib/grpc/package.json 
 COPY --from=builder /workspace/lib/prisma/package.json ./lib/prisma/package.json 
-COPY --from=builder /workspace/apps/auth/prisma ./apps/auth/prisma
 
 # set variable to optimize build and exclude dev dependencies 
 ENV NODE_ENV=production
@@ -40,7 +41,7 @@ ENV NODE_ENV=production
 RUN npm ci
 
 COPY --from=builder /workspace/node_modules/@prisma-clients/auth/ ./node_modules/@prisma-clients/auth
-
+`
 COPY --from=builder /workspace/dist ./dist 
 
 CMD ["node", "dist/apps/auth/main"]

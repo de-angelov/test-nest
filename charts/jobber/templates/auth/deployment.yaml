@@ -22,7 +22,7 @@ spec:
           command: ["sh", "-c"]
           args: 
             - | 
-              npx prisma migrate deploy --schema=apps/auth/prisma/schema.prisma 
+               echo "Listing contents of apps/auth/prisma folder:" && ls apps/auth/prisma
           env: 
             {{- include "common.env" . | nindent 12 }}
       containers: 
