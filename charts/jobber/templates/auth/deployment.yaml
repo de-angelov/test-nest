@@ -20,9 +20,9 @@ spec:
           image: {{ .Values.auth.image }}
           imagePullPolicy: {{ .Values.global.imagePullPolicy }}
           command: ["sh", "-c"]
-          args: 
-            - | 
-               echo "Listing contents of apps/auth/prisma folder:" && ls apps/auth/prisma
+          args:
+            - |
+              npx prisma migrate deploy --schema=apps/auth/prisma/schema.prisma
           env: 
             {{- include "common.env" . | nindent 12 }}
       containers: 
@@ -40,7 +40,7 @@ spec:
               value: {{ .Values.auth.jwt.secret }}
             - name: JWT_EXPIRATION_MS
             # quoted to escape the value
-              value: "{{ .Values.auth.jwt.expirationsMs }}"
+              value: "{{ .Values.auth.jwt.expirationMs }}"
             - name: AUTH_GRPC_SERVICE_URL
               value: "0.0.0.0:{{ .Values.auth.port.grpc }}"
 
