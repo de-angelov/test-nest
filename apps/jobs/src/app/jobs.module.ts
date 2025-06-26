@@ -8,6 +8,20 @@ import { AUTH_PACKAGE_NAME } from '@jobber/grpc';
 import { join } from 'path';
 import { PulsarModule } from '@jobber/pulsar';
 import { ConfigService } from '@nestjs/config';
+
+const getAuthConfig = (configService: ConfigService) => {
+  const config: ClientOptions = {
+    transport: Transport.GRPC,
+    options: {
+      url: configService.getOrThrow('AUTH_GRPC_SERVICE_URL'),
+      package: AUTH_PACKAGE_NAME,
+      protoPath: join(__dirname, '../../lib/grpc/proto/auth.proto'),
+    },
+  };
+
+  return config;
+};
+
 @Module({
   imports: [
     DiscoveryModule,
@@ -16,18 +30,7 @@ import { ConfigService } from '@nestjs/config';
       {
         name: AUTH_PACKAGE_NAME,
         inject: [ConfigService],
-        useFactory: (configService: ConfigService) => {
-          const config: ClientOptions = {
-            transport: Transport.GRPC,
-            options: {
-              url: configService.getOrThrow('AUTH_GRPC_SERVICE_URL'),
-              package: AUTH_PACKAGE_NAME,
-              protoPath: join(__dirname, '../../lib/grpc/proto/auth.proto'),
-            },
-          };
-
-          return config;
-        },
+        useFactory: getAuthConfig,
       },
     ]),
   ],
