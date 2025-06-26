@@ -23,6 +23,7 @@ export class PulsarClient implements OnModuleDestroy {
   async createConsumer(topic: string, listener: (message: Message) => void) {
     const consumer = await this.client.subscribe({
       topic,
+      subscriptionType: 'Shared',
       subscription: 'jobber',
       listener,
     });

@@ -42,3 +42,10 @@ helm install jobber . -n=jobber  --create-namespace
 kubectl get po -n jobber
 kubectl logs executor-7dd669bdc6-tdpzc -n jobber
 kubectl describe po auth-598f9fc8d9-pfbwf  -n jobber 
+
+
+running scripts
+node ./scripts/fibonacci.mjs http://127.0.0.1:34133/graphql http://127.0.0.1:44125/graphql 500
+
+
+kubectl scale deployment executor --replicas 5 -n jobber 
