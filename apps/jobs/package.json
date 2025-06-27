@@ -1,6 +1,7 @@
 {
   "name": "@jabber/jobs",
   "version": "0.0.0",
-  "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "@types/multer": "^1.4.13"
+  }
 }

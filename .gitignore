@@ -47,3 +47,6 @@ Thumbs.db
 # enviorment files
 
 .env
+
+data/*
+apps/jobs/uploads

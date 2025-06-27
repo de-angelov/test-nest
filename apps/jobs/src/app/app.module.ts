@@ -5,6 +5,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { LoggerModule } from '@jobber/nestjs';
 import { GqlLoggingPlugin } from '@jobber/graphql';
+import { UploadsModule } from './uploads/uploads.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { GqlLoggingPlugin } from '@jobber/graphql';
       isGlobal: true,
     }),
     JobModule,
+    UploadsModule,
     LoggerModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
