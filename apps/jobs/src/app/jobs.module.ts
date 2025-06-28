@@ -8,6 +8,7 @@ import { Packages } from '@jobber/grpc';
 import { join } from 'path';
 import { PulsarModule } from '@jobber/pulsar';
 import { ConfigService } from '@nestjs/config';
+import { LoadProductsJob } from './jobs/products/load-products.job';
 
 const getAuthConfig = (configService: ConfigService) => {
   const config: ClientOptions = {
@@ -34,6 +35,6 @@ const getAuthConfig = (configService: ConfigService) => {
       },
     ]),
   ],
-  providers: [FibonacciJob, JobsService, JobsResolver],
+  providers: [LoadProductsJob, FibonacciJob, JobsService, JobsResolver],
 })
 export class JobModule {}
