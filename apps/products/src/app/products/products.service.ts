@@ -13,6 +13,6 @@ export class ProductsService {
   async createProduct(
     product: Omit<typeof schema.products.$inferSelect, 'id'>
   ) {
-    await this.database.insert(schema.products);
+    await this.database.insert(schema.products).values({ ...product });
   }
 }
