@@ -3,7 +3,8 @@ import { DATABASE_CONNECTION } from './database.connection';
 import { ConfigService } from '@nestjs/config';
 import { Pool } from 'pg';
 import { drizzle } from 'drizzle-orm/node-postgres';
-import * as productSchema from '../products/schema';
+import * as productsSchema from '../products/schema';
+import * as categoriesSchema from '../categories/schema';
 
 const dbFactory = (configService: ConfigService) => {
   const pool = new Pool({
@@ -11,7 +12,7 @@ const dbFactory = (configService: ConfigService) => {
   });
 
   const drizzleOptions = {
-    schema: { ...productSchema },
+    schema: { ...productsSchema, ...categoriesSchema },
   };
 
   return drizzle(pool, drizzleOptions);
