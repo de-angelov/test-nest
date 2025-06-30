@@ -17,7 +17,7 @@ sudo ss -tulnp | awk 'NR>1 {
 pkill node
 
 
-//kill nx hanging proces in case of a bug
+//kill nx hanging process in case of a bug
 
 nx reset had no effect (though it deletes the contents of the .nx folder - I checked that).
 
@@ -29,6 +29,7 @@ Also, sometimes it hangs up with 'Waiting for graph construction in another proc
 // inspect file contents of docker image
 docker run -it --entrypoint /bin/sh jobber-jobs
 
+docker build -t jobs -f apps/jobs/Dockerfile . --no-cache
 
 // kubernetes related commands
 minikube status
@@ -43,6 +44,9 @@ kubectl get po -n jobber
 kubectl logs executor-7dd669bdc6-tdpzc -n jobber
 kubectl describe po auth-598f9fc8d9-pfbwf  -n jobber 
 
+// reset db
+kubectl delete namespace postgresql 
+kubectl create namespace postgresql
 
 running scripts
 node ./scripts/fibonacci.mjs http://127.0.0.1:34133/graphql http://127.0.0.1:44125/graphql 500
