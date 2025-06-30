@@ -13,10 +13,13 @@ COPY eslint.config.mjs ./
 COPY webpack.*.config.js ./
 
 COPY apps/executor ./apps/executor  
+COPY lib/grpc/ ./lib/grpc
 COPY lib/nestjs ./lib/nestjs
 COPY lib/pulsar ./lib/pulsar
 
 RUN npm install 
+
+RUN apt-get update && apt-get install -y protobuf-compiler 
 
 RUN npx nx build executor
 
@@ -25,6 +28,7 @@ FROM node:18-slim AS runner
 COPY --from=builder /workspace/package.json ./ 
 COPY --from=builder /workspace/apps/executor/package.json ./apps/executor/package.json 
 COPY --from=builder /workspace/lib/pulsar/package.json ./lib/pulsar/package.json 
+COPY --from=builder /workspace/lib/grpc/package.json ./lib/grpc/package.json 
 COPY --from=builder /workspace/package-lock.json ./
 
 
