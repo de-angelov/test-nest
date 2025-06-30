@@ -40,13 +40,18 @@ helm upgrade jobber . -n jobber
 helm uninstall jobber -n jobber
 helm install jobber . -n=jobber  --create-namespace 
 
-kubectl get po -n jobber
+kubectl get po -n jobber / kubectl get pods  -n postgresql
+kubectl get svc -n jobber
 kubectl logs executor-7dd669bdc6-tdpzc -n jobber
 kubectl describe po auth-598f9fc8d9-pfbwf  -n jobber 
 
 // reset db
 kubectl delete namespace postgresql 
 kubectl create namespace postgresql
+
+//connect to db 
+kubectl exec --stdin --tty jobber-postgresql-0 -n postgresql -- sh
+psql -U postgres  -d products
 
 running scripts
 node ./scripts/fibonacci.mjs http://127.0.0.1:34133/graphql http://127.0.0.1:44125/graphql 500
