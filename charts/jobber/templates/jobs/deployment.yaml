@@ -25,7 +25,7 @@ spec:
           imagePullPolicy: {{ .Values.global.imagePullPolicy }} 
           volumeMounts: 
             - name: uploads-volume
-              mountPath: 'app/apps/jobs/uploads'
+              mountPath: 'app/appsupload/jobs/uploads'
           ports: 
             - containerPort: {{ .Values.jobs.port }}
           env: 

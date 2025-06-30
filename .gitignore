@@ -49,4 +49,4 @@ Thumbs.db
 .env
 
 data/*
-apps/jobs/uploads
+appsupload/jobs/uploads
