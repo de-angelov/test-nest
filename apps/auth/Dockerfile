@@ -27,6 +27,8 @@ RUN npx nx build auth
 
 FROM node:18-slim AS runner 
 
+RUN apt-get update && apt-get install -y openssl
+
 COPY --from=builder /workspace/package.json ./ 
 COPY --from=builder /workspace/package-lock.json ./
 # workaround
