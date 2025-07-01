@@ -5,6 +5,7 @@ import { ClientOptions, ClientsModule, Transport } from '@nestjs/microservices';
 import { Packages } from '@jobber/grpc';
 import { ConfigService } from '@nestjs/config';
 import { join } from 'path';
+import { JobClientsModule } from '../job.clients.module';
 
 const getProductsConfig = (configService: ConfigService) => {
   const config: ClientOptions = {
@@ -22,6 +23,7 @@ const getProductsConfig = (configService: ConfigService) => {
 @Module({
   imports: [
     PulsarModule,
+    JobClientsModule,
     ClientsModule.registerAsync([
       {
         name: Packages.PRODUCTS,

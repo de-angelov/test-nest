@@ -10,6 +10,7 @@ import { PulsarModule } from '@jobber/pulsar';
 import { ConfigService } from '@nestjs/config';
 import { LoadProductsJob } from './jobs/products/load-products.job';
 import { PrismaModule } from './prisma/prisma.module';
+import { JobsController } from './jobs.controler';
 
 const getAuthConfig = (configService: ConfigService) => {
   const config: ClientOptions = {
@@ -37,6 +38,7 @@ const getAuthConfig = (configService: ConfigService) => {
       },
     ]),
   ],
+  controllers: [JobsController],
   providers: [LoadProductsJob, FibonacciJob, JobsService, JobsResolver],
 })
 export class JobModule {}

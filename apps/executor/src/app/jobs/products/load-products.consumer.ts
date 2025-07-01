@@ -4,36 +4,36 @@ import {
   ProductsServiceClient,
 } from '@jobber/grpc';
 import { Jobs } from '@jobber/nestjs';
-import {
-  LoadProductsMessage,
-  PulsarClient,
-  PulsarConsumer,
-} from '@jobber/pulsar';
+import { LoadProductsMessage, PulsarClient } from '@jobber/pulsar';
 import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
 import { ClientGrpc } from '@nestjs/microservices';
 import { firstValueFrom } from 'rxjs';
+import { JobConsumer } from '../job.consumer';
 
 @Injectable()
 export class LoadProductsConsumer
-  extends PulsarConsumer<LoadProductsMessage>
+  extends JobConsumer<LoadProductsMessage>
   implements OnModuleInit
 {
   private productsService: ProductsServiceClient;
 
   constructor(
     pulsarClient: PulsarClient,
-    @Inject(Packages.PRODUCTS) private clientGrpc: ClientGrpc
+    @Inject(Packages.JOBS) clientJobs: ClientGrpc,
+    @Inject(Packages.PRODUCTS) private clientProducts: ClientGrpc
   ) {
-    super(pulsarClient, Jobs.LOAD_PRODUCTS);
+    super(Jobs.LOAD_PRODUCTS, pulsarClient, clientJobs);
   }
 
   async onModuleInit(): Promise<void> {
-    this.productsService = this.clientGrpc.getService(PRODUCTS_SERVICE_NAME);
+    this.productsService = this.clientProducts.getService(
+      PRODUCTS_SERVICE_NAME
+    );
 
     super.onModuleInit();
   }
 
-  protected async onMessage(data: LoadProductsMessage) {
+  protected async execute(data: LoadProductsMessage) {
     console.log('On message: ', data);
     const createObs = this.productsService.createProduct(data);
 
