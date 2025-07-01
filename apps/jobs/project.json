@@ -37,9 +37,24 @@
       }
     },
     "test": {
+      "dependsOn": ["generate-prisma", "^build"],
       "options": {
         "passWithNoTests": true
       }
+    },
+    "generate-prisma": {
+      "command": "prisma generate",
+      "options": {
+        "cwd": "{projectRoot}",
+        "input": ["prisma/schema.prisma"]
+      }
+    },
+    "migrate-prisma": {
+      "command": "prisma migrate dev",
+      "options": {
+        "cwd": "{projectRoot}"
+      },
+      "cache": true
     }
   }
 }

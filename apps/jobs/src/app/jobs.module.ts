@@ -9,6 +9,7 @@ import { join } from 'path';
 import { PulsarModule } from '@jobber/pulsar';
 import { ConfigService } from '@nestjs/config';
 import { LoadProductsJob } from './jobs/products/load-products.job';
+import { PrismaModule } from './prisma/prisma.module';
 
 const getAuthConfig = (configService: ConfigService) => {
   const config: ClientOptions = {
@@ -27,6 +28,7 @@ const getAuthConfig = (configService: ConfigService) => {
   imports: [
     DiscoveryModule,
     PulsarModule,
+    PrismaModule,
     ClientsModule.registerAsync([
       {
         name: Packages.AUTH,
