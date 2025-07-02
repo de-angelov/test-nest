@@ -3,6 +3,8 @@ import {
   Injectable,
   InternalServerErrorException,
   OnModuleInit,
+  Query,
+  UseGuards,
 } from '@nestjs/common';
 import { JOB_METADATA_KEY } from './decorators/job.decorator';
 import { JobMetadata } from './interfaces/job-metadata.interface';
@@ -31,7 +33,17 @@ export class JobsService implements OnModuleInit {
     );
   }
 
-  getJobs() {
+  async getJobs() {
+    return this.prismaService.job.findMany();
+  }
+
+  async getJob(jobId: number) {
+    return this.prismaService.job.findUnique({
+      where: { id: jobId },
+    });
+  }
+
+  getJobsMetadata() {
     return this.jobs.map((job) => job.meta);
   }
 
@@ -48,8 +60,7 @@ export class JobsService implements OnModuleInit {
 
     const finalData = data.fileName ? this.getFile(data.fileName) : data;
 
-    await job.discoveredClass.instance.execute(finalData, job.meta.name);
-    return job.meta;
+    return job.discoveredClass.instance.execute(finalData, job.meta.name);
   }
 
   async acknowledge(jobId: number) {
